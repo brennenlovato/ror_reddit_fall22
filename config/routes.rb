@@ -25,7 +25,38 @@ Rails.application.routes.draw do
     # rails g way 
     # resources :name ofcontroller 
     # handles the main CRUD actions 
-    resources :subs
+    resources :subs do 
+      resources :topics
+    end
+    #  only do two level deep 
+
+    resources :topics, except: [:index, :show, :create, :update, :destroy] do 
+      resources :comments 
+    end
+
+    # resources :comments, except: [:index, :show, :create, :update, :destroy] do 
+    #   resources :likes 
+    # end
+
+    # DONT DO
+    # resources :subs do 
+    #   resources :topics do 
+    #     resources :comments do
+    #       resources :likes
+    #     end
+    #   end
+    # end
+
+    # model with a parent and child then we need to 
+    # do a a do block 
+    # but only do two level deep
+    # resources :parent1 do 
+    #   resources :child2
+    # end
+
+    # resources :child2 do 
+    #   resources :child3
+    # end
 
     # to view the routes 
   # in terminal - bundle exec rails routes 
